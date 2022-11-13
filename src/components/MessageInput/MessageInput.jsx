@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 
+// Style
+import StyledMessageInput from './StyledMessageInput';
+
 function MessageInput({ addMessage }) {
 
   const [newMessage, setNewMessage] = useState({sender: 'Jon', content: ''})
@@ -12,10 +15,11 @@ function MessageInput({ addMessage }) {
       id: Math.floor(Math.random() * 1000)
     })
     addMessage(newMessage);
+    setNewMessage({sender:'Jon', content: ''})
   }
 
   return (
-    <form onSubmit={event => handleSubmit(event)}>
+    <StyledMessageInput onSubmit={event => handleSubmit(event)}>
       <input
         type="text"
         placeholder='Enter your message'
@@ -23,7 +27,7 @@ function MessageInput({ addMessage }) {
         onChange={(event) => setNewMessage({...newMessage, content: event.target.value})}
       />
       <button type="submit">Send</button>
-    </form>
+    </StyledMessageInput>
   )
 }
 

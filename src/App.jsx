@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import './App.css'
 
 //Components
 import MessageBoard from './components/MessageBoard/MessageBoard'
 import MessageInput from './components/MessageInput/MessageInput'
 
+//Style
+import StyledApp from './StyledApp'
 
 //Supabase
 import { createClient } from '@supabase/supabase-js';
@@ -44,10 +45,10 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <StyledApp>
       <MessageBoard messages={messages} />
       <MessageInput addMessage={addMessage} />
-    </div>
+    </StyledApp>
   )
 }
 
