@@ -1,21 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { AuthContext } from '../../service/AuthContext';
 
 // Style
 import StyledMessageInput from './StyledMessageInput';
 
 function MessageInput({ addMessage }) {
 
-  const [newMessage, setNewMessage] = useState({sender: 'Jon', content: ''})
+  const authcontext = useContext(AuthContext);
+  const [newMessage, setNewMessage] = useState({sender: authcontext.user.user_name, content: ''})
 
   function handleSubmit(event) {
     //Prevent page refesh
     event.preventDefault();
-    setNewMessage({
-      ...newMessage,
-      id: Math.floor(Math.random() * 1000)
-    })
     addMessage(newMessage);
-    setNewMessage({sender:'Jon', content: ''})
+    setNewMessage({...newMessage, content: ''})
   }
 
   return (

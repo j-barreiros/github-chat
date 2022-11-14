@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../../service/AuthContext'
 
 // Style
 import StyledMessage from './StyledMessage'
 
 function Message({ message }) {
+  const authcontext = useContext(AuthContext);
   return (
-    <StyledMessage className={message.id % 2 == 0 ? 'sentMessage' : 'receivedMessage'}>
-      <img src='https://avatars.githubusercontent.com/u/51035089?v=4' />
+    <StyledMessage className={authcontext.user.user_name === message.sender ? 'sentMessage' : 'receivedMessage'}>
+      <img src={`https://github.com/${message.sender}.png`} />
       <div>
         <p>{`${message.content}`}</p>
       </div>
