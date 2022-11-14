@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const StyledMessage = styled.div`
-    width: fit-content;
     margin: 5px 0px;
     padding: 5px;
     display: flex;
@@ -11,14 +10,18 @@ const StyledMessage = styled.div`
 
     img {
         width: 50px;
-        height: auto;
+        height: 50px;
         border-radius: 50%;
     }
 
     div {
+        height: auto;
         padding: 10px;
         margin: 0px 10px;
         border-radius: 10px;
+    }
+
+    p {
     }
 
     &.sentMessage {
