@@ -9,15 +9,17 @@ function Login() {
     const supabase = createClient(PROJECT_URL, API_KEY);
     const [githubUser, setGithubUser] = useState(null);
 
-    async function checkUser() {
-        const user = await supabase.auth.getUser();
-        console.log(user);
-        setUser(user);
-    }
 
     async function signInWithGithub() {
-        const { user, session, error } = await supabase.auth.signInWithOAuth({provider: 'github'})
+        const { user, session, error } = await supabase.auth.signInWithOAuth({
+            provider: 'github',
+            options: {
+                redirectTo: 'http://www.google.com'
+            }
+        })
 
+        console.log(user)
+        
         if(user) {
             setGithubUser(user)
         }
@@ -32,7 +34,7 @@ function Login() {
         return (
             <div>
                 {console.log(githubUser)}
-                <h1>Hello, {user.email}</h1>
+                <h1>Hello, {githubUser.email}</h1>
                 <button onClick={signOut}>Sign out</button>
             </div>
         )
