@@ -9,32 +9,37 @@ function Login() {
     const supabase = createClient(PROJECT_URL, API_KEY);
     const [githubUser, setGithubUser] = useState(null);
 
+    useEffect(() => {
+        checkUser();
+        window.addEventListener('hashchange', () => checkUser());
+    }, [])
 
     async function signInWithGithub() {
-        const { user, session, error } = await supabase.auth.signInWithOAuth({
+        const {data, error} = await supabase.auth.signInWithOAuth({
             provider: 'github',
-            options: {
-                redirectTo: 'http://www.google.com'
-            }
         })
-
-        console.log(user)
-        
-        if(user) {
-            setGithubUser(user)
-        }
     }
 
     async function signOut() {
         await supabase.auth.signOut();
-        setUser(null);
+        setGithubUser(null);
+    }
+
+    async function checkUser() {
+        const userRequest = supabase.auth.getUser();
+        userRequest.then((result) => {
+            setGithubUser(result.data.user.user_metadata)
+        })
     }
 
     if(githubUser) {
         return (
             <div>
                 {console.log(githubUser)}
-                <h1>Hello, {githubUser.email}</h1>
+                <img src={githubUser.avatar_url} />
+                <h1>Iae {githubUser.full_name}</h1>
+                <h2>também conhecido como {githubUser.user_name}</h2>
+                <h3>e dono do email {githubUser.email}</h3>
                 <button onClick={signOut}>Sign out</button>
             </div>
         )
