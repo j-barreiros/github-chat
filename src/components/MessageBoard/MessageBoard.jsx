@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { AuthContext } from '../../service/AuthContext';
 
 //Components
 import Message from '../Message/Message';
@@ -6,9 +7,8 @@ import Message from '../Message/Message';
 // Style
 import StyledMessageBoard from './StyledMessageBoard';
 
-
 function MessageBoard({ messages }) {
-
+    const authcontext = useContext(AuthContext)
     const board = useRef();
 
     // Scroll the message board down when a new message is added 
@@ -18,10 +18,12 @@ function MessageBoard({ messages }) {
 
     return (
         <StyledMessageBoard ref={board}>
-            {messages.map(message =>
+            {messages.map((message, index) =>
                 <Message
                     key={message.id}
                     message={message}
+                    received={authcontext.user.user_name != message.sender}
+                    chainedMessage={index > 0 && messages[index - 1].sender == message.sender}
                 />
             )}
         </StyledMessageBoard>
