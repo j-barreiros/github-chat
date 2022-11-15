@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 //Components
 import MessageBoard from './components/MessageBoard/MessageBoard'
 import MessageInput from './components/MessageInput/MessageInput'
+import RoomDisplay from './components/RoomDisplay/RoomDisplay'
 
 //Style
 import StyledApp from './StyledApp'
@@ -18,6 +19,7 @@ const supabase = createClient(PROJECT_URL, API_KEY);
 function App() {
 
   const [messages, setMessages] = useState([]);
+  const [room, setRoom] = useState('#general');
   const navigate = useNavigate();
   const authcontext = useContext(AuthContext);
 
@@ -48,15 +50,18 @@ function App() {
   function addMessage(newMessage) {
     //setMessages([...messages,newMessage]);
     supabase.from('messages')
-      .insert(newMessage)
+      .insert({...newMessage, room: room})
       .then()
       .catch()
   }
 
   return (
     <StyledApp>
-      <MessageBoard messages={messages} />
-      <MessageInput addMessage={addMessage} />
+      <RoomDisplay setRoom={setRoom} />
+      <div className='chat'>
+        <MessageBoard messages={messages} room={room}/>
+        <MessageInput addMessage={addMessage} room={room}/>
+      </div>
     </StyledApp>
   )
 }

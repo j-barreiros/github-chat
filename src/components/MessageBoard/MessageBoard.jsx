@@ -7,7 +7,7 @@ import Message from '../Message/Message';
 // Style
 import StyledMessageBoard from './StyledMessageBoard';
 
-function MessageBoard({ messages }) {
+function MessageBoard({ messages, room }) {
     const authcontext = useContext(AuthContext)
     const board = useRef();
 
@@ -18,7 +18,7 @@ function MessageBoard({ messages }) {
 
     return (
         <StyledMessageBoard ref={board}>
-            {messages.map((message, index) =>
+            {messages.filter((message) => message.room == room).map((message, index) =>
                 <Message
                     key={message.id}
                     message={message}

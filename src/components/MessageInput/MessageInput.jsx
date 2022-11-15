@@ -12,18 +12,18 @@ function SendArrowSvg() {
   )
 }
 
-function MessageInput({ addMessage }) {
+function MessageInput({ addMessage, room }) {
 
   const authcontext = useContext(AuthContext);
-  const [newMessage, setNewMessage] = useState({ sender: authcontext.user.user_name, content: '' })
+  const [newMessage, setNewMessage] = useState({ sender: authcontext.user.user_name,content: ''})
 
   function handleSubmit(event) {
     //Prevent page refesh
     event.preventDefault();
     addMessage(newMessage);
-    setNewMessage({ ...newMessage, content: '' })
+    setNewMessage({ ...newMessage, content: ''})
   }
-
+  
   return (
     <StyledMessageInput onSubmit={event => handleSubmit(event)}>
       <input
