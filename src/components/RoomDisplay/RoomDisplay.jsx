@@ -1,14 +1,34 @@
 import React from 'react'
 
-function RoomDisplay({setRoom}) {
+//Style
+import StyledRoomDisplay from './StyledRoomDisplay';
+
+//Icon
+import Icons from './Icons';
+
+function RoomDisplay({ setRoom, selectedRoom }) {
+
+  const roomList = ['#general', '#html', '#css', '#javascript', '#react'];
+
   return (
-    <section>
-        <button onClick={() => setRoom('#general')}>#general</button>
-        <button onClick={() => setRoom('#html')}>#html</button>
-        <button onClick={() => setRoom('#css')}>#css</button>
-        <button onClick={() => setRoom('#javascript')}>#javascript</button>
-        <button onClick={() => setRoom('#react')}>#react</button>
-    </section>
+    <StyledRoomDisplay>
+      {roomList.map((room, index) => {
+        const isActive = selectedRoom == room;
+        return (
+          <button
+            key={index}
+            className={`
+              roomButton
+              ${isActive && 'active'}
+            `}
+            onClick={() => setRoom(room)}
+          >
+            <Icons icon={room} className='roomIcon'/>
+            {room}
+          </button>
+        )
+      })}
+    </StyledRoomDisplay>
   )
 }
 
