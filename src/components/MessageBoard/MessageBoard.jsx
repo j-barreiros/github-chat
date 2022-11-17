@@ -13,8 +13,12 @@ function MessageBoard({ messages, room }) {
 
     // Scroll the message board down when a new message is added 
     useEffect(() => {
+        scrollDown()
+    }, [messages, room])
+    
+    function scrollDown() {
         board.current.scrollTop = board.current.scrollHeight;
-    }, [messages])
+    }
 
     return (
         <StyledMessageBoard ref={board}>
