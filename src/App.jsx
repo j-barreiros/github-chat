@@ -24,11 +24,10 @@ function App() {
   const authcontext = useContext(AuthContext);
 
   useEffect(() => {
+    if (authcontext.user == null) {
+      authcontext.checkUser()
+    }
 
-    if(authcontext.user == null) {
-      navigate('/')
-    } 
-    
     supabase.from('messages')
       .select('*')
       .then(({ data }) => {
@@ -42,7 +41,7 @@ function App() {
       "postgres_changes",
       { event: "*", schema: "public", table: "messages" },
       (payload) => {
-        console.log("Change received!", setMessages([...messages, payload.new]));
+        setMessages([...messages, payload.new])
       }
     )
     .subscribe();
@@ -50,20 +49,23 @@ function App() {
   function addMessage(newMessage) {
     //setMessages([...messages,newMessage]);
     supabase.from('messages')
-      .insert({...newMessage, room: room})
+      .insert({ ...newMessage, room: room })
       .then()
       .catch()
   }
 
-  return (
-    <StyledApp>
-      <RoomDisplay setRoom={setRoom} />
-      <div className='chat'>
-        <MessageBoard messages={messages} room={room}/>
-        <MessageInput addMessage={addMessage} room={room}/>
-      </div>
-    </StyledApp>
-  )
+  if (authcontext.user) {
+    return (
+      <StyledApp>
+        <RoomDisplay setRoom={setRoom} selectedRoom={room} />
+        <div className='chat'>
+          <MessageBoard messages={messages} room={room}/>
+          <MessageInput addMessage={addMessage} user={authcontext.user.user_name} />
+        </div>
+      </StyledApp>
+    )
+  }
+  return (<></>)
 }
 
 export default App
