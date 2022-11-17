@@ -6,6 +6,7 @@ const StyledMessage = styled.div`
     align-items: flex-end;
     flex-direction: row-reverse;
     margin-top: 10px;
+    margin-bottom: 3px;
 
     img {
         width: 50px;
@@ -42,7 +43,7 @@ const StyledMessage = styled.div`
     }
 
     &.chainedMessage {
-        margin-top: 5px;
+        margin: 3px 0px;
         align-items: flex-start;
 
         img {
@@ -50,7 +51,7 @@ const StyledMessage = styled.div`
         }
 
         .message-box {
-            margin: 0px 55px 5px 0px;
+            margin-right: 55px;
             h4 {
                 display: none;
             }
@@ -76,7 +77,7 @@ const StyledMessage = styled.div`
 
         &.chainedMessage {
             .message-box {
-                margin: 0px 0px 5px 55px;
+                margin-left: 55px;
             }
         }
     }

@@ -3,7 +3,7 @@ const darktheme = {
     chat_background: '#323644',
     receivedMessage_background: '#424656',
     sentMessage_background: '#1D90F5',
-    text_color: '#CACBD0',
+    text_color: '#eee',
 }
 
 export default darktheme;
