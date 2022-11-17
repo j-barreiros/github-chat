@@ -15,21 +15,30 @@ function MessageBoard({ messages, room }) {
     useEffect(() => {
         scrollDown()
     }, [messages, room])
-    
+
     function scrollDown() {
         board.current.scrollTop = board.current.scrollHeight;
     }
 
-    return (
-        <StyledMessageBoard ref={board}>
-            {messages.filter((message) => message.room == room).map((message, index) =>
+    function getRoomMessages() {
+        const filteredMessages = messages.filter((message) => message.room == room);
+        const roomMessages = filteredMessages.map((message, index) => {
+            return (
                 <Message
                     key={message.id}
                     message={message}
                     received={authcontext.user.user_name != message.sender}
-                    chainedMessage={index > 0 && messages[index - 1].sender == message.sender}
+                    chainedMessage={index > 0 && filteredMessages[index - 1].sender == message.sender}
                 />
-            )}
+            )
+        })
+
+        return roomMessages;
+    }
+
+    return (
+        <StyledMessageBoard ref={board}>
+           {getRoomMessages()}
         </StyledMessageBoard>
     )
 }
