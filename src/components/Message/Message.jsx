@@ -16,7 +16,7 @@ function Message({ message, received, chainedMessage }) {
       <a href={`https://github.com/${message.sender}`} target='about_blank'>
         <img src={`https://github.com/${message.sender}.png`} />
       </a>
-      <div>
+      <div className='message-box'>
         <h4 className='sender-name'>{`${message.sender}`}</h4>
         <p className='message-content'>{`${message.content}`}</p>
         <p className='message-sendtime'>{message.created_at.slice(11,16)}</p>
