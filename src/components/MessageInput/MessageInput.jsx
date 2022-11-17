@@ -12,10 +12,10 @@ function SendArrowSvg() {
   )
 }
 
-function MessageInput({ addMessage, room }) {
+function MessageInput({ addMessage, user}) {
 
   const authcontext = useContext(AuthContext);
-  const [newMessage, setNewMessage] = useState({ sender: authcontext.user.user_name,content: ''})
+  const [newMessage, setNewMessage] = useState({ sender: user,content: ''})
 
   function handleSubmit(event) {
     //Prevent page refesh
