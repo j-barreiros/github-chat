@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { AuthContext } from '../../service/AuthContext'
 
 // Style
 import StyledMessage from './StyledMessage'
@@ -9,7 +8,6 @@ function SentMessage() {
 }
 
 function Message({ message, received, chainedMessage }) {
-  const authcontext = useContext(AuthContext);
   return (
     <StyledMessage className={`
       ${received && 'receivedMessage'} 
