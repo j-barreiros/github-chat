@@ -3,9 +3,10 @@ import styled from "styled-components";
 const StyledMessageInput = styled.form`
     display: flex;
     width: 100%;
-    height: 10%;
+    min-height: 10%;
     background-color: ${props => props.theme.receivedMessage_background};
     align-items: center;
+    padding: 0px 5px;
     
     input[type='text'] {
         background-color: ${props => props.theme.app_background};
