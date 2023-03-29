@@ -7,6 +7,11 @@ import { useNavigate } from 'react-router-dom';
 const PROJECT_URL = 'https://wdmngefxwwygmivvtgok.supabase.co';
 const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkbW5nZWZ4d3d5Z21pdnZ0Z29rIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjgyNjg1NDksImV4cCI6MTk4Mzg0NDU0OX0.9O9yDhbGvgkyoDSNvSgn-5CBY61FjDuR4NafRQGK7g0'
 
+// Styled
+import StyledLogin from './StyledLogin';
+
+// Icon
+import GithubIcon from '../../public/github-icon';
 function Login() {
     const supabase = createClient(PROJECT_URL, API_KEY);
     const authcontext = useContext(AuthContext)
@@ -19,7 +24,7 @@ function Login() {
     }, [])
 
     useEffect(() => {
-        if(authcontext.user) {
+        if (authcontext.user) {
             console.log('tentei ir')
             navigate('chat')
         }
@@ -29,21 +34,27 @@ function Login() {
         authcontext.signInWithGithub();
     }
 
-    if(authcontext.user) {
+    if (authcontext.user) {
         return (
-            <div>
-                <img src={authcontext.user.avatar_url} />
-                <h1>Iae {authcontext.user.full_name}</h1>
-                <button onClick={authcontext.signOut}>Sign out</button>
-            </div>
+            <StyledLogin>
+                <h1 className="login-title">Loggin</h1>
+            </StyledLogin>
         )
     }
 
-    return(
-        <div>
-            <h1>Login</h1>
-            <button onClick={signIn}>Sign in</button>
-        </div>
+    return (
+        <StyledLogin>
+            <div className='login-container'>
+                <h1 className="login-title"><span className='green-span'>Dev</span>_Chat</h1>
+                <button
+                    onClick={signIn}
+                    className="login-button"
+                >
+                    <GithubIcon />
+                    Sign in
+                </button>
+            </div>
+        </StyledLogin>
     )
 }
 
